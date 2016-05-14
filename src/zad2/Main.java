@@ -7,6 +7,7 @@ package zad2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class Main {
 
@@ -16,14 +17,18 @@ public class Main {
         GridLayout lay = new GridLayout();
         f.setLayout(lay);
 
-        String a = "sdsdds";
-
         MyListModel mm = new MyListModel();
-        mm.add(a);
         JList list = new JList(mm);
 
         JTextArea area = new JTextArea();
-        area.addComponentListener(new );
+        Action actionDoListy = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String doListy = area.getText();
+                mm.add(doListy);
+            }
+        } ;
+        area.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), actionDoListy);
 
 
        f.add(list);
