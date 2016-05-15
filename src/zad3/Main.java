@@ -21,13 +21,13 @@ public class Main {
     f.setLayout(lay);
 
 
-    try {
-      JTable table = new JTable(new MyTableModel());
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
+      MyTableModel mm = new MyTableModel("aaa", "bbb", "ccc", "ddd");
+      JTable table = new JTable(mm);
+    JScrollPane scrollPane = new JScrollPane(table);
+    table.setFillsViewportHeight(true);
 
 
+    f.add(scrollPane);
     f.setVisible(true);
     f.pack();
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
