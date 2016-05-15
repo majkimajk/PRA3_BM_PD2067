@@ -1,11 +1,12 @@
 package zad3;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by michalbaran on 14/05/16.
@@ -17,22 +18,29 @@ public class MyTableModel extends AbstractTableModel {
 
     private ArrayList<String> tytuly = new ArrayList<>();
     private ArrayList<String> ceny = new ArrayList<>();
-    private ArrayList<String> okladki = new ArrayList<>();
+    private ArrayList<ImageIcon> okladki = new ArrayList<>();
 
-    public MyTableModel(String autor, String tytul, String cena, String okladka){
+    public MyTableModel(String pathFile) {
 /*
         FileReader fr = new FileReader(dane);
         BufferedReader br = new BufferedReader(fr);
         */
-        autorzy.add(autor);
-        tytuly.add(tytul);
-        ceny.add(cena);
-        okladki.add(okladka);
-
-
+        Scanner scan = null;
+        try {
+            scan = new Scanner(new File(pathFile));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        while (scan.hasNext()) {
+            autorzy.add(scan.next());
+            tytuly.add(scan.next());
+            ceny.add(scan.next());
+            okladki.add(new ImageIcon(scan.next()));
+        }
 
 
     }
+
     public String getColumnName(int col) {
         return nazwaKolumn[col];
     }
@@ -46,22 +54,33 @@ public class MyTableModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
 
-        return  nazwaKolumn.length;
+        return nazwaKolumn.length;
+    }
+
+    @Override
+    public Class getColumnClass(int columnIndex) {
+
+        return getValueAt(0, columnIndex).getClass();
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Object o = null;
-        switch(columnIndex) {
+        switch (columnIndex) {
 
-            case 0 : o = autorzy.get(rowIndex);
+            case 0:
+                o = autorzy.get(rowIndex);
                 break;
-            case 1 : o = tytuly.get(rowIndex);
+            case 1:
+                o = tytuly.get(rowIndex);
                 break;
-            case 2 : o = ceny.get(rowIndex);
+            case 2:
+                o = ceny.get(rowIndex);
                 break;
-            case 3 : o = okladki.get(rowIndex);
-                default: break;
+            case 3:
+                o = okladki.get(rowIndex);
+            default:
+                break;
         }
 
         return o;

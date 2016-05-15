@@ -1,7 +1,5 @@
 /**
- *
- *  @author Baran Michał PD2067
- *
+ * @author Baran Michał PD2067
  */
 
 package zad3;
@@ -13,29 +11,31 @@ import java.io.FileNotFoundException;
 
 public class Main {
 
-  public Main() {
+    public Main() {
 
 
-    JFrame f = new JFrame();
-    GridLayout lay = new GridLayout();
-    f.setLayout(lay);
+        JFrame f = new JFrame();
+        GridLayout lay = new GridLayout();
+        f.setLayout(lay);
 
 
-      MyTableModel mm = new MyTableModel("aaa", "bbb", "ccc", "ddd");
-      JTable table = new JTable(mm);
-    JScrollPane scrollPane = new JScrollPane(table);
-    table.setFillsViewportHeight(true);
+        MyTableModel mm = new MyTableModel("aaa", "bbb", "ccc", "aaa.png");
+        JTable table = new JTable(mm);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        //table.setPreferredScrollableViewportSize(table.getPreferredSize());
+        table.setRowHeight(300);
 
 
-    f.add(scrollPane);
-    f.setVisible(true);
-    f.pack();
-    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  }
+        f.add(scrollPane);
+        f.setVisible(true);
+        f.pack();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-  public static void main(String[] args) {
+    public static void main(String[] args) {
 
-    SwingUtilities.invokeLater(() -> new Main());
+        SwingUtilities.invokeLater(() -> new Main());
 
-  }
+    }
 }
