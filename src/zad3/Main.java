@@ -19,12 +19,12 @@ public class Main {
         f.setLayout(lay);
 
 
-        MyTableModel mm = new MyTableModel("aaa", "bbb", "ccc", "aaa.png");
+        MyTableModel mm = new MyTableModel("aaa.txt");
         JTable table = new JTable(mm);
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
         //table.setPreferredScrollableViewportSize(table.getPreferredSize());
-        table.setRowHeight(300);
+        table.setRowHeight(100);
 
 
         f.add(scrollPane);

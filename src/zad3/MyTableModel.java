@@ -17,24 +17,21 @@ public class MyTableModel extends AbstractTableModel {
     private ArrayList<String> autorzy = new ArrayList<>();
 
     private ArrayList<String> tytuly = new ArrayList<>();
-    private ArrayList<String> ceny = new ArrayList<>();
+    private ArrayList<Double> ceny = new ArrayList<>();
     private ArrayList<ImageIcon> okladki = new ArrayList<>();
 
     public MyTableModel(String pathFile) {
-/*
-        FileReader fr = new FileReader(dane);
-        BufferedReader br = new BufferedReader(fr);
-        */
+
         Scanner scan = null;
         try {
             scan = new Scanner(new File(pathFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Niepoprawny plik");;
         }
         while (scan.hasNext()) {
             autorzy.add(scan.next());
             tytuly.add(scan.next());
-            ceny.add(scan.next());
+            ceny.add(scan.nextDouble());
             okladki.add(new ImageIcon(scan.next()));
         }
 
@@ -42,7 +39,8 @@ public class MyTableModel extends AbstractTableModel {
     }
 
     public String getColumnName(int col) {
-        return nazwaKolumn[col];
+        return
+                nazwaKolumn[col];
     }
 
     @Override
@@ -84,5 +82,12 @@ public class MyTableModel extends AbstractTableModel {
         }
 
         return o;
+    }
+
+    public void setValueAt(Object value, int row, int col) {
+        if (col == 2) {
+            ceny.add(row, (Double) value);
+            fireTableCellUpdated(row, col);
+        }
     }
 }
