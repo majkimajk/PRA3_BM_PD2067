@@ -32,7 +32,15 @@ public class MyTableModel extends AbstractTableModel {
             autorzy.add(scan.next());
             tytuly.add(scan.next());
             ceny.add(scan.nextDouble());
-            okladki.add(new ImageIcon(scan.next()));
+            Image okladka = null;
+            try {
+                okladka = ImageIO.read(new File((scan.next())));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Image okladkaZmniejszona = okladka.getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH);
+            ImageIcon ikonka = new ImageIcon(okladkaZmniejszona);
+            okladki.add(ikonka);
         }
 
 
@@ -90,4 +98,6 @@ public class MyTableModel extends AbstractTableModel {
             fireTableCellUpdated(row, col);
         }
     }
+
+
 }
