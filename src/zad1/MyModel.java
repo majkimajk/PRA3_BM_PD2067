@@ -12,7 +12,7 @@ public class MyModel extends AbstractListModel {
     MyModel() {
 
         start = -70;
-        finish = 60;
+        finish = 61;
 
     }
 

@@ -7,41 +7,64 @@ package zad3;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 public class Main {
 
     public Main() {
 
 
-        JFrame f = new JFrame();
-        GridLayout lay = new GridLayout(0, 1);
-        f.setLayout(lay);
+        JFrame f = new JFrame("JTable z książkami");
+
+        //wczytanie pliku z danymi
+
+        MyTableModel mm = new MyTableModel(System.getProperty("user.home") + "/aaa.txt");
 
 
-        MyTableModel mm = new MyTableModel("aaa.txt");
         JTable table = new JTable(mm);
         JScrollPane scrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
-        //table.setPreferredScrollableViewportSize(table.getPreferredSize());
-        table.setRowHeight(100);
+        table.setRowHeight(70);
 
-        JButton dodaj = new JButton();
-        dodaj.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+//button do dodawani wiersza
 
+        JButton dodaj = new JButton("Dodaj wiersz");
+        String[] daneWiersza = new String[4];
+        dodaj.addActionListener(e -> {
+
+
+            daneWiersza[0] = JOptionPane.showInputDialog("Podaj autora:");
+            daneWiersza[1] = JOptionPane.showInputDialog("Podaj tytuł:");
+            daneWiersza[2] = JOptionPane.showInputDialog("Podaj cenę:");
+            daneWiersza[3] = JOptionPane.showInputDialog("Podaj nazwę pliku okładki:");
+            mm.addRow(daneWiersza);
+
+        });
+
+        dodaj.setSize(10, 10);
+
+        //button do usuwania wiersza
+
+        JButton usun = new JButton("Usuń zaznaczony wiersz");
+        usun.addActionListener(e -> {
+            int rowDoUsuniecia = -1;
+            rowDoUsuniecia = table.getSelectedRow();
+            if (rowDoUsuniecia != -1) {
+                mm.removeRow(rowDoUsuniecia);
             }
         });
-        dodaj.setSize(10, 10);
-        JButton usun = new JButton();
 
+        // japnel na buttony
 
-        f.add(scrollPane);
-        f.add(dodaj);
-        f.add(usun);
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        panel.setSize(f.getWidth(), 50);
+        panel.add(dodaj);
+        panel.add(usun);
+
+        //dodanie tabeli i panelu z buttonami do głównego frame'a'
+
+        f.add(scrollPane, BorderLayout.CENTER);
+        f.add(panel, BorderLayout.PAGE_END);
         f.setVisible(true);
         f.pack();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
