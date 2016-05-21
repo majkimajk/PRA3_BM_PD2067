@@ -18,7 +18,7 @@ public class Main {
 
         //wczytanie pliku z danymi
 
-        MyTableModel mm = new MyTableModel(System.getProperty("user.home") + "/aaa.txt");
+        MyTableModel mm = new MyTableModel("aaa.txt");
 
 
         JTable table = new JTable(mm);
